@@ -9,5 +9,18 @@
   "useTabs": false,
   "arrowParens": "always",
   "jsxSingleQuote": false,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss","@trivago/prettier-plugin-sort-imports"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrder": [
+    "^react(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@/components/(.*)$",
+    "^@/store/(.*)$",
+    "^@/api/(.*)$",
+    "^(.*)/(?!generated)(.*)/(.*)$", 
+    "^(.*)/generated/(.*)$", 
+    "^[./]"
+  ]
 }
