@@ -8,5 +8,7 @@
   "bracketSpacing": true,
   "useTabs": false,
   "arrowParens": "always",
-  "jsxSingleQuote": false
+  "jsxSingleQuote": false,
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

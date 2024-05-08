@@ -7,3 +7,4 @@
 **/*.spec.{js,jsx,ts,tsx}
 **/.eslintrc.js
 .env*.local
+.prettierrc
