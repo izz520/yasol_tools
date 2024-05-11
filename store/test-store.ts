@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 
 type IState = {
   count: number
@@ -8,9 +9,13 @@ type IAction = {
   increment: () => void
 }
 
-const testSate = create<IState & IAction>((set) => ({
-  count: 0,
-  increment: () => set((state: IState) => ({ count: state.count + 1 })),
-}))
+type ITestState = IState & IAction
+
+const testSate = create<ITestState, [['zustand/devtools', never]]>(
+  devtools((set) => ({
+    count: 0,
+    increment: () => set((state) => ({ count: state.count + 1 })),
+  }))
+)
 
 export default testSate

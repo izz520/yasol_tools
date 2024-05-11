@@ -10,6 +10,7 @@ import testSate from '@/store/test-store'
 export default function Home() {
   const increment = testSate((state) => state.increment)
   const count = testSate((state) => state.count)
+
   const updateCount = () => {
     increment()
   }

@@ -6,5 +6,9 @@
 **/*.test.{js,jsx,ts,tsx}
 **/*.spec.{js,jsx,ts,tsx}
 **/.eslintrc.js
+*.svg
+*.png
+*.css
+*.json
 .env*.local
 .prettierrc
