@@ -2,8 +2,9 @@
 
 import Image from 'next/image'
 
-import Button from '@/components/Button'
 import Input from '@/components/Input'
+// import Button from '@/components/Button'
+import { Button } from '@/components/ui/button'
 
 import testSate from '@/store/test-store'
 
