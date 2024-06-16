@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
 
+import Aside from '@/components/Layout/Aside'
+import Header from '@/components/Layout/Header'
+
 import { Inter } from 'next/font/google'
 
 import './globals.css'
@@ -22,7 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={twMerge('min-h-screen bg-background font-sans antialiased', inter.variable)}>{children}</body>
+      <body className={twMerge('h-screen bg-background font-sans antialiased', inter.variable)}>
+        <Aside />
+        <main className="pl-[255px]">
+          <Header />
+          <section>{children}</section>
+        </main>
+      </body>
     </html>
   )
 }
