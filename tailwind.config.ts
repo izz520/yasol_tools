@@ -15,6 +15,11 @@ const config = {
     },
     extend: {
       colors: {
+        // custom
+        cardBg: 'var(--card-bg)',
+        fontPrimary: 'var(--font-primary)',
+        fontSecondary: 'var(--font-secondary)',
+        // shadcn
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -48,6 +53,13 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+      },
+      backgroundColor: {
+        bgPrimary: 'var(--bg-primary)',
+        fontSecondary: 'var(--font-secondary)',
+      },
+      borderColor: {
+        borderPrimary: 'var(--border-primary)',
       },
       borderRadius: {
         lg: 'var(--radius)',

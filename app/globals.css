@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --card-bg: #ffffff;
+  --bg-primary: #f4f7fe;
+  --font-primary: #2b3674;
+  --font-secondary: #a3aed0;
+  --border-primary: #f4f7fe;
+}
+
+.dark {
+  --card-bg: #111c44;
+  --bg-primary: #0b1437;
+  --font-primary: #ffffff;
+  --font-secondary: #a3aed0;
+  --border-primary: rgba(255, 255, 255, 0.1);
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

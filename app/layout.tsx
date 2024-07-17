@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={twMerge('h-screen bg-background font-sans antialiased', inter.variable)}>
+      <body className={twMerge('h-screen bg-bgPrimary font-sans antialiased', inter.variable)}>
         <Aside />
         <main className="pl-[255px]">
           <Header />
