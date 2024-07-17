@@ -10,7 +10,7 @@
   "arrowParens": "always",
   "jsxSingleQuote": false,
   "plugins": ["@trivago/prettier-plugin-sort-imports","prettier-plugin-tailwindcss"],
-  "tailwindAttributes": ["className"],
+  "tailwindFunctions": ["twMerge"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrderCaseInsensitive": true,
