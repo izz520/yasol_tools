@@ -12,8 +12,8 @@
 }
 
 .dark {
-  --card-bg: #111c44;
-  --bg-primary: #222325;
+  --card-bg: #111111;
+  --bg-primary: #191919;
   --font-primary: #eeeef0;
   --font-secondary: #797b86;
   --font-hover: #b2b3bd;
@@ -22,8 +22,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0, 0%, 100%;
+    --background: 240, 8%, 96.1%;
+    --foreground: 228, 7.1%, 13.1%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
@@ -42,12 +42,12 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 161, 100%, 36.5%;
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 0, 0%, 100%;
+    --background: 0, 0%, 9.8%;
+    --foreground: 240, 7.1%, 94.1%;
     --card: 24 9.8% 10%;
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;

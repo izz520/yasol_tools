@@ -31,11 +31,11 @@ const Aside = () => {
   ]
   return (
     <aside className="fixed left-0 top-0 h-full w-[255px] bg-cardBg">
-      <h1 className=" flex  items-center justify-center gap-2 border-b border-borderPrimary py-8 text-2xl font-bold text-fontPrimary">
+      <h1 className=" flex  items-center justify-start gap-2 border-b border-r border-borderPrimary py-3 pl-8 text-2xl font-bold text-fontPrimary">
         <span className="flex size-10 items-center justify-center rounded-lg bg-fontPrimary">
-          <LuCommand className="text-white" />
+          <LuCommand className="text-cardBg" />
         </span>
-        <span>YASOT</span>
+        <span className="text-fontPrimary">YASOT</span>
       </h1>
       <div className="flex flex-col gap-5 pt-6">
         {navList.map((nav) => (

@@ -25,11 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={twMerge('h-screen bg-bgPrimary font-sans antialiased', inter.variable)}>
+      <body className={twMerge('h-screen font-sans antialiased', inter.variable)}>
         <Aside />
-        <main className="pl-[255px]">
+        <main className="flex min-h-screen flex-col pl-[255px]">
           <Header />
-          <section>{children}</section>
+          <section className="mt-16 flex flex-1 p-4">{children}</section>
         </main>
       </body>
     </html>
