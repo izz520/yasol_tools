@@ -43,7 +43,7 @@ const Aside = () => {
             <h3 className="group flex items-center justify-between overflow-hidden pl-8">
               <div
                 className={twMerge(
-                  'hover:text-fontHover flex items-center gap-3 py-1.5 font-medium',
+                  'flex items-center gap-3 py-1.5 font-medium hover:text-fontHover',
                   nav.isActive ? ' !text-fontPrimary' : 'text-fontSecondary'
                 )}
               >
@@ -58,7 +58,7 @@ const Aside = () => {
               </div>
               <span
                 className={twMerge(
-                  'group-hover:bg-fontHover h-8 w-1 -translate-y-9 rounded-full bg-transparent transition-all  group-hover:translate-y-0',
+                  'h-8 w-1 -translate-y-9 rounded-full bg-transparent transition-all group-hover:translate-y-0  group-hover:bg-fontSecondary',
                   nav.isActive && 'h-8 translate-y-0 !bg-primary'
                 )}
               ></span>

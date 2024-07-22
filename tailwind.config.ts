@@ -19,6 +19,7 @@ const config = {
         cardBg: 'var(--card-bg)',
         fontPrimary: 'var(--font-primary)',
         fontSecondary: 'var(--font-secondary)',
+        fontHover: 'var(--font-hover)',
         // shadcn
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

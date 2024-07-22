@@ -7,6 +7,7 @@
   --bg-primary: #f5f5f7;
   --font-primary: #1e1f24;
   --font-secondary: #80828d;
+  --font-hover: #62636c;
   --border-primary: #f4f7fe;
 }
 
@@ -15,6 +16,7 @@
   --bg-primary: #222325;
   --font-primary: #eeeef0;
   --font-secondary: #797b86;
+  --font-hover: #b2b3bd;
   --border-primary: rgba(255, 255, 255, 0.1);
 }
 
