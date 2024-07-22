@@ -1,7 +1,7 @@
 'use client'
 
 import React, { memo } from 'react'
-import { LuHome, LuSquareCode } from 'react-icons/lu'
+import { LuCommand, LuHome, LuPackage, LuSquareCode } from 'react-icons/lu'
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -12,37 +12,53 @@ const Aside = () => {
   const navList = [
     {
       isActive: pathname === '/',
-      icon: <LuHome size={20} className={pathname === '/' ? ' text-primary' : 'text-fontSecondary'} />,
+      Icon: LuHome,
       title: 'Dashboard',
       path: '/',
     },
     {
       isActive: pathname === '/abi',
-      icon: <LuSquareCode size={20} className={pathname === '/abi' ? ' text-primary' : 'text-fontSecondary'} />,
+      Icon: LuSquareCode,
       title: 'Encode ABI',
       path: '/abi',
+    },
+    {
+      isActive: pathname === '/calldata',
+      Icon: LuPackage,
+      title: 'Encode CallData',
+      path: '/calldata',
     },
   ]
   return (
     <aside className="fixed left-0 top-0 h-full w-[255px] bg-cardBg">
-      <h1 className=" flex h-16 items-center justify-start border-b border-borderPrimary pl-8 text-2xl font-bold text-fontPrimary">
-        YASOL Tools
+      <h1 className=" flex  items-center justify-center gap-2 border-b border-borderPrimary py-8 text-2xl font-bold text-fontPrimary">
+        <span className="flex size-10 items-center justify-center rounded-lg bg-fontPrimary">
+          <LuCommand className="text-white" />
+        </span>
+        <span>YASOT</span>
       </h1>
-      <div className="flex flex-col gap-5 pt-8">
+      <div className="flex flex-col gap-5 pt-6">
         {navList.map((nav) => (
           <Link href={nav.path} key={nav.title}>
             <h3 className="group flex items-center justify-between overflow-hidden pl-8">
               <div
                 className={twMerge(
-                  'flex items-center gap-3 py-1.5 font-medium',
-                  nav.isActive ? ' text-fontPrimary' : 'text-fontSecondary'
+                  'hover:text-fontHover flex items-center gap-3 py-1.5 font-medium',
+                  nav.isActive ? ' !text-fontPrimary' : 'text-fontSecondary'
                 )}
               >
-                {nav.icon} {nav.title}
+                <nav.Icon
+                  size={20}
+                  className={twMerge(
+                    'group-hover:text-fontHover',
+                    nav.isActive ? '!text-primary' : 'text-fontSecondary'
+                  )}
+                />{' '}
+                {nav.title}
               </div>
               <span
                 className={twMerge(
-                  'h-8 w-1 -translate-y-9 rounded-full bg-transparent transition-all group-hover:translate-y-0  group-hover:bg-fontSecondary',
+                  'group-hover:bg-fontHover h-8 w-1 -translate-y-9 rounded-full bg-transparent transition-all  group-hover:translate-y-0',
                   nav.isActive && 'h-8 translate-y-0 !bg-primary'
                 )}
               ></span>
