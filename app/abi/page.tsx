@@ -1,15 +1,42 @@
 import React from 'react'
 
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
+
+import AddContract from './components/AddContract'
 
 const page = () => {
   return (
-    <div className="w-full flex-1 rounded-lg bg-cardBg p-4">
-      <div className="flex items-center justify-between">
-        <h3 className=" text-lg">Encode abi to methods</h3>
-        <div>
-          <Button>Add Contract</Button>
-        </div>
+    <div className="flex w-full flex-1 flex-col gap-4">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <Link href="/" className="hover:text-fontPrimary">
+              Home
+            </Link>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Encode Abi</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+      <div>
+        <h3 className=" text-xl font-medium text-fontPrimary">Encode Abi</h3>
+        <p className=" text-sm text-fontSecondary">
+          Use the contract&apos;s abi to parse out all read and write methods
+        </p>
+      </div>
+      <div className="grid grid-cols-4 gap-4">
+        <AddContract />
+        {/* <Example /> */}
       </div>
     </div>
   )

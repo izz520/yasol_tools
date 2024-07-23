@@ -59,9 +59,12 @@ const config = {
       backgroundColor: {
         bgPrimary: 'var(--bg-primary)',
         fontSecondary: 'var(--font-secondary)',
+        bgSecondary: 'var(--bg-secondary)',
       },
       borderColor: {
         borderPrimary: 'var(--border-primary)',
+        borderSecondary: 'var(--font-secondary)',
+        borderDashed: 'var(--border-secondary)',
       },
       borderRadius: {
         lg: 'var(--radius)',

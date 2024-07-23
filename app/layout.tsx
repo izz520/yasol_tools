@@ -29,7 +29,7 @@ export default function RootLayout({
         <Aside />
         <main className="flex min-h-screen flex-col pl-[255px]">
           <Header />
-          <section className="mt-16 flex flex-1 p-4">{children}</section>
+          <section className="mt-16 flex flex-1 p-6">{children}</section>
         </main>
       </body>
     </html>

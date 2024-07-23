@@ -1,8 +1,9 @@
 'use client'
 
 import React, { memo } from 'react'
-import { LuCommand, LuHome, LuPackage, LuSquareCode } from 'react-icons/lu'
 
+// import { LuCommand, LuHome, LuPackage, LuSquareCode } from 'react-icons/lu'
+import { Command, Package, SquareCode, TvMinimal } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
@@ -12,19 +13,19 @@ const Aside = () => {
   const navList = [
     {
       isActive: pathname === '/',
-      Icon: LuHome,
+      Icon: TvMinimal,
       title: 'Dashboard',
       path: '/',
     },
     {
       isActive: pathname === '/abi',
-      Icon: LuSquareCode,
+      Icon: SquareCode,
       title: 'Encode ABI',
       path: '/abi',
     },
     {
       isActive: pathname === '/calldata',
-      Icon: LuPackage,
+      Icon: Package,
       title: 'Encode CallData',
       path: '/calldata',
     },
@@ -33,7 +34,7 @@ const Aside = () => {
     <aside className="fixed left-0 top-0 h-full w-[255px] bg-cardBg">
       <h1 className=" flex  items-center justify-start gap-2 border-b border-r border-borderPrimary py-3 pl-8 text-2xl font-bold text-fontPrimary">
         <span className="flex size-10 items-center justify-center rounded-lg bg-fontPrimary">
-          <LuCommand className="text-cardBg" />
+          <Command className="text-cardBg" />
         </span>
         <span className="text-fontPrimary">YASOT</span>
       </h1>
