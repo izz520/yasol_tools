@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 import Link from 'next/link'
@@ -10,9 +12,13 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 
+import abiStore from '@/store/abi-store'
+
 import AddContract from './components/AddContract'
+import ContractItem from './components/ContractItem'
 
 const page = () => {
+  const contracts = abiStore((state) => state.contracts)
   return (
     <div className="flex w-full flex-1 flex-col gap-4">
       <Breadcrumb>
@@ -34,9 +40,14 @@ const page = () => {
           Use the contract&apos;s abi to parse out all read and write methods
         </p>
       </div>
-      <div className="grid grid-cols-4 gap-4">
-        <AddContract />
-        {/* <Example /> */}
+      <div className="flex w-full gap-4">
+        <div className=" flex flex-col">
+          <AddContract />
+          {contracts.map((contract) => {
+            return <ContractItem isActive={false} key={contract.address + contract.network} {...contract} />
+          })}
+        </div>
+        <div className="w-full flex-1">123</div>
       </div>
     </div>
   )

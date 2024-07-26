@@ -5,12 +5,13 @@ import { useState } from 'react'
 import { useRef } from 'react'
 
 import { Plus } from 'lucide-react'
-import { getAbiItem } from 'viem'
 
 import Modal from '@/components/library/Modal'
 import Select, { ISelectItemProps } from '@/components/library/Select'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+
+import abiStore from '@/store/abi-store'
 
 import networkConfig from '@/libs/network.json'
 
@@ -33,7 +34,7 @@ const initFromInfo: IAddContractFromInfo = {
 const AddContract = () => {
   const [open, setOpen] = useState<boolean>(false)
   const formInfoRef = useRef<IAddContractFromInfo>(initFromInfo)
-
+  const addContract = abiStore((state) => state.addContract)
   const changeContractName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     formInfoRef.current.name = value
@@ -59,16 +60,15 @@ const AddContract = () => {
   }
 
   const confirmSaveContract = () => {
-    console.log(formInfoRef.current)
-    console.log(JSON.parse(formInfoRef.current.abi))
-    const encodeData = getAbiItem({
-      abi: JSON.parse(formInfoRef.current.abi),
-      name: formInfoRef.current.name,
-    })
-    console.log('encodeData', encodeData)
+    addContract(formInfoRef.current)
+    // const contracts: IAddContractFromInfo[] = JSON.parse(getSession('local', 'encodeAbi_contracts') || '[]')
+    // const index = contracts.findLastIndex(
+    //   (item: IAddContractFromInfo) =>
+    //     item.address === formInfoRef.current.address && item.network === formInfoRef.current.network
+    // )
+    // const newContracts = index !== -1 ? (contracts[index] = formInfoRef.current) : contracts.concat(formInfoRef.current)
+    // setSession('local', 'encodeAbi_contracts', JSON.stringify(newContracts))
     setOpen(false)
-
-    formInfoRef.current = initFromInfo
   }
   const Comp = () => {
     return (
@@ -95,7 +95,7 @@ const AddContract = () => {
 
   return (
     <Modal open={open} onOpen={setOpen} title="Add Contract" content={<Comp />} onConfirm={confirmSaveContract}>
-      <div className="flex cursor-pointer items-center justify-center gap-1 rounded-lg border border-dashed border-borderDashed bg-cardBg p-6 text-fontHover shadow-sm hover:border-primary hover:text-primary">
+      <div className="flex h-full min-h-[68px] cursor-pointer items-center justify-center gap-1 rounded-lg border border-dashed border-borderDashed bg-cardBg text-fontHover shadow-sm hover:border-primary hover:text-primary">
         <Plus size={20} />
         AddContract
       </div>

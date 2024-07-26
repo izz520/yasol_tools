@@ -6,5 +6,5 @@
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "prettier.requireConfig": true,
-  "cSpell.words": ["clsx", "lucide", "shadcn", "tailwindcss"]
+  "cSpell.words": ["clsx", "lucide", "shadcn", "tailwindcss", "zustand"]
 }

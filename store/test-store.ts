@@ -1,21 +1,19 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-type IState = {
-  count: number
+interface ITokenState {
+  isUpdateBidList: boolean
+}
+interface ITokenAction {
+  changeIsUpdateBidList: (value: boolean) => void
 }
 
-type IAction = {
-  increment: () => void
-}
+type ITokenStore = ITokenState & ITokenAction
 
-type ITestState = IState & IAction
-
-const testSate = create<ITestState, [['zustand/devtools', never]]>(
+const tokenStore = create<ITokenStore, [['zustand/devtools', never]]>(
   devtools((set) => ({
-    count: 0,
-    increment: () => set((state) => ({ count: state.count + 1 })),
+    isUpdateBidList: false,
+    changeIsUpdateBidList: (value: boolean) => set((state: ITokenStore) => ({ ...state, isUpdateBidList: value })),
   }))
 )
-
-export default testSate
+export default tokenStore
