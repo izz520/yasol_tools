@@ -6,6 +6,11 @@
   --card-bg: #ffffff;
   --bg-primary: #f5f5f7;
   --bg-secondary: #f3fcf6;
+  --green-2: #f3fcf6;
+  --green-6: #9ee2bb;
+  --orange-2: #fff7ed;
+  --orange-8: #ec9455;
+  --orange-6: #ffc182;
   --font-primary: #1e1f24;
   --font-secondary: #80828d;
   --font-hover: #62636c;
@@ -17,6 +22,11 @@
   --card-bg: #111111;
   --bg-primary: #191919;
   --bg-secondary: #121b15;
+  --green-2: #121b15;
+  --green-6: #19593a;
+  --orange-2: #1e160f;
+  --orange-8: #a35829;
+  --orange-6: #66350c;
   --font-primary: #eeeef0;
   /* --font-secondary: #797b86; */
   --font-secondary: hsl(240 5% 64.9%);

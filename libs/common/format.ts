@@ -10,3 +10,7 @@ export const formatAddress = (address: string): string => {
   const end = address.slice(-4)
   return `${start}...${end}`
 }
+
+export const formatUpperCaseFirst = (str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}

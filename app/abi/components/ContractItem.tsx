@@ -3,14 +3,10 @@ import React, { memo } from 'react'
 import Image from 'next/image'
 import { twMerge } from 'tailwind-merge'
 
-import Drawer from '@/components/library/Drawer'
-
 import imgUrl from '@/constant/imgUrl'
 import { formatAddress } from '@/libs/common/format'
 import networkList from '@/libs/network.json'
 import { IContractFromInfo } from '@/types/abi'
-
-import MethodDrawer from './MethodDrawer'
 
 interface IContractItem extends React.AnchorHTMLAttributes<HTMLDivElement>, IContractFromInfo {
   isActive?: boolean
@@ -23,26 +19,24 @@ const ContractItem = (props: IContractItem) => {
   const networkIcon = chainInfo?.icon || imgUrl.chain.defaultChainIcon
 
   return (
-    <Drawer content={<MethodDrawer />}>
-      <div
-        className={twMerge(
-          'cursor-pointer rounded-lg bg-cardBg p-4 transition-all',
-          isActive ? 'ring-1 ring-primary' : 'shadow-sm hover:shadow-md',
-          className
-        )}
-      >
-        <div className=" flex items-center gap-3">
-          <Image width={32} height={32} src={networkIcon} alt="chain icon" />
-          <div className="flex flex-col">
-            <span className="text-sm font-medium">{name}</span>
-            <div className="flex gap-1">
-              <span className=" text-xs text-fontSecondary">{formatAddress(address)}</span>
-              <span className=" text-xs text-fontSecondary"> ( {chainInfo?.networkName.split(' ')[0]} )</span>
-            </div>
+    <div
+      className={twMerge(
+        'cursor-pointer rounded-lg bg-cardBg px-4 py-3 transition-all',
+        isActive ? 'bg-bgSecondary ring-1 ring-primary' : 'shadow-sm hover:shadow-md',
+        className
+      )}
+    >
+      <div className=" flex items-center gap-3">
+        <Image width={32} height={32} src={networkIcon} alt="chain icon" />
+        <div className="flex flex-col">
+          <span className={twMerge('text-sm font-medium', isActive ? 'text-primary' : 'text-fontPrimary')}>{name}</span>
+          <div className={twMerge(' flex gap-1 text-xs', isActive ? ' text-primary' : 'text-fontSecondary')}>
+            <span>{formatAddress(address)}</span>
+            <span> ( {chainInfo?.networkName.split(' ')[0]} )</span>
           </div>
         </div>
       </div>
-    </Drawer>
+    </div>
   )
 }
 
