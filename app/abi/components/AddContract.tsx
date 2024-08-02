@@ -95,7 +95,7 @@ const AddContract = () => {
 
   return (
     <Modal open={open} onOpen={setOpen} title="Add Contract" content={<Comp />} onConfirm={confirmSaveContract}>
-      <div className="flex h-[68px] w-[235px]  cursor-pointer items-center justify-center gap-1 rounded-lg border border-dashed border-borderDashed bg-cardBg text-fontHover shadow-sm hover:border-primary hover:text-primary">
+      <div className="flex h-[60px] w-[235px] flex-shrink-0  cursor-pointer items-center justify-center gap-1 rounded-lg border border-dashed border-borderDashed bg-cardBg text-fontHover shadow-sm hover:border-primary hover:text-primary">
         <Plus size={20} />
         AddContract
       </div>

@@ -31,7 +31,7 @@ const Aside = () => {
     },
   ]
   return (
-    <aside className="fixed left-0 top-0 h-full w-[255px] bg-cardBg">
+    <aside className="fixed left-0 top-0 z-10 h-full w-[255px] bg-cardBg">
       <h1 className=" flex  items-center justify-start gap-2 border-b border-r border-borderPrimary py-3 pl-8 text-2xl font-bold text-fontPrimary">
         <span className="flex size-10 items-center justify-center rounded-lg bg-fontPrimary">
           <Command className="text-cardBg" />
