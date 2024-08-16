@@ -3,34 +3,20 @@ import React, { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { twMerge } from 'tailwind-merge'
 
-import AbiStore from '@/store/abi-store'
-
+import useContract from '../hook/useContract'
 import networkList from '@/libs/network.json'
 
-import { IAbiItem } from '../types'
 import MethodItem from './MethodItem'
 
 type ITab = 'read' | 'write'
 const MethodCard = () => {
-  const contracts = AbiStore((state) => state.contracts)
-  const selectKey = AbiStore((state) => state.selectKey)
   const [currentTab, setCurrentTab] = useState<ITab>('read')
-  const selectContract = useMemo(() => {
-    return contracts.find((item) => item.network + item.address === selectKey)
-  }, [selectKey, contracts])
-  console.log('🚀 ~ selectContract ~ selectContract:', selectContract)
+  const { selectContract, methods, readContract } = useContract()
 
   const chainInfo = useMemo(
     () => networkList.find((item) => item.chainID === selectContract?.network),
     [selectContract, networkList]
   )
-  console.log('🚀 ~ MethodCard ~ chainInfo:', chainInfo)
-
-  const methods = useMemo(() => {
-    const list = JSON.parse(selectContract?.abi || '[]') as IAbiItem[]
-    return list.filter((fun) => fun.type === 'function')
-  }, [selectContract])
-  console.log('🚀 ~ methods ~ methods:', methods)
 
   const readMethods = useMemo(() => {
     return methods.filter((item) => item.stateMutability === 'view')
@@ -73,13 +59,13 @@ const MethodCard = () => {
         </span>
       </div>
       <div className={twMerge('flex-col gap-5 overflow-y-auto', currentTab === 'read' ? 'flex' : 'hidden h-0')}>
-        {readMethods.map((item) => {
-          return <MethodItem functionType={currentTab} key={item.name} {...item} />
+        {readMethods.map((item, index) => {
+          return <MethodItem functionType={currentTab} readContract={readContract} key={item.name + index} {...item} />
         })}
       </div>
       <div className={twMerge('flex-col gap-5 overflow-y-auto', currentTab === 'write' ? 'flex' : 'hidden h-0')}>
-        {writeMethods.map((item) => {
-          return <MethodItem functionType={currentTab} key={item.name} {...item} />
+        {writeMethods.map((item, index) => {
+          return <MethodItem functionType={currentTab} key={item.name + index} {...item} />
         })}
       </div>
     </div>

@@ -1,11 +1,8 @@
 import UserStore from '@/store/user-store'
 
-import useEventEthereum from '@/hooks/useEventEthereum'
-
 const useLogin = () => {
   const changeIsLogin = UserStore((state) => state.changeIsLogin)
   const changeAccount = UserStore((state) => state.changeAccount)
-  useEventEthereum()
   const handleConnect = async () => {
     const accounts = await window.ethereum.request({
       method: 'eth_requestAccounts',

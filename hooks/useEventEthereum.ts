@@ -12,7 +12,7 @@ const useEventEthereum = () => {
     window.ethereum.on('accountsChanged', changeAccounts)
     window.ethereum.on('chainChanged', changeChain)
     // window.ethereum.on('connect', changeConnect)
-    // window.ethereum.on('disconnect', changeDisconnect)
+    window.ethereum.on('disconnect', changeAccounts)
 
     return () => {
       window.ethereum.removeListener('accountsChanged', changeAccounts)

@@ -1,39 +1,66 @@
-import React, { memo, useMemo } from 'react'
-
-import { Contract, ethers } from 'ethers'
+import React, { memo, useRef, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-import AbiStore from '@/store/abi-store'
-
 import { formatUpperCaseFirst } from '@/libs/common/format'
-import networkList from '@/libs/network.json'
 
 import { IAbiItem } from '../types'
 import MethodTypeBadge from './MethodTypeBadge'
 
 interface IMethodItemProps extends IAbiItem {
   functionType: 'read' | 'write'
+  readContract?: (funName: string, args: string[]) => Promise<any>
 }
 const MethodItem = (props: IMethodItemProps) => {
-  const { functionType, ...abiInfo } = props
-  const selectKey = AbiStore((state) => state.selectKey)
-  const contracts = AbiStore((state) => state.contracts)
+  const { functionType, readContract, ...abiInfo } = props
 
-  const selectContract = useMemo(() => {
-    return contracts.find((item) => item.network + item.address === selectKey)
-  }, [selectKey, contracts])
+  const inputsRef = useRef<any[]>([])
 
-  const chainInfo = useMemo(
-    () => networkList.find((item) => item.chainID === selectContract?.network),
-    [selectContract, networkList]
-  )
-  const handleQuery = () => {
-    const rpc = chainInfo?.rpcUrls[0]
-    const provider = new ethers.providers.JsonRpcProvider(rpc)
-    const contract = new Contract(selectContract?.address as string, [abiInfo] as any, provider)
-    console.log('🚀 ~ handleQuery ~ contract:', contract)
+  const [inputs, setInputs] = useState<any[]>(new Array(abiInfo.inputs.length).fill(''))
+
+  const [output, setOutput] = useState<any[]>([])
+
+  const handleQuery = async () => {
+    console.log('inputsRef.current', inputsRef.current)
+    const result = await readContract?.(abiInfo.name, inputsRef.current)
+    console.log('result', result)
+    formateResult(result)
+    console.log('output', abiInfo.outputs)
+  }
+
+  const formateResult = (result: any) => {
+    const isArray = Array.isArray(result)
+    const outputs = abiInfo.outputs
+    console.log('🚀 ~ formateResult ~ isArray:', isArray)
+    if (!isArray) {
+      const formateValue = outputs[0].type.includes('uint') ? Number(result) : result
+      return setOutput([
+        {
+          name: outputs[0].name,
+          value: formateValue,
+        },
+      ])
+    }
+    const resultList = outputs.map((item, index) => {
+      const name = item.name
+      console.log(`result[${index}]`, result[index])
+
+      return {
+        name: name,
+        value: item.type.includes('uint') ? Number(result[index]) : result[index],
+      }
+    })
+    console.log('resultList', resultList)
+
+    setOutput(resultList)
+  }
+
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const value = e.target.value
+    console.log('🚀 ~ changeInput ~ value:', value)
+    inputsRef.current[index] = value
+    setInputs([...inputsRef.current])
   }
 
   return (
@@ -51,7 +78,11 @@ const MethodItem = (props: IMethodItemProps) => {
                   <span className=" text-sm">{input.name}</span>
                   <span className=" text-sm text-fontSecondary">({input.type})</span>
                 </div>
-                <Input className=" max-w-[50%] bg-transparent py-1.5" />
+                <Input
+                  value={inputs[index]}
+                  className=" max-w-[50%] bg-transparent py-1.5"
+                  onChange={(e) => changeInput(e, index)}
+                />
               </div>
             )
           })}
@@ -65,6 +96,22 @@ const MethodItem = (props: IMethodItemProps) => {
       >
         Query
       </Button>
+      {output.length > 0 && (
+        <div className="pl-4">
+          <div className="rounded-md bg-bgSecondary p-2">
+            {output.length === 1 && <div>{output[0].value}</div>}
+            {output.length > 1 &&
+              output?.map((outputItem, index) => {
+                return (
+                  <div key={index} className="flex flex-col">
+                    <span>{outputItem.name}</span>
+                    <span className=" text-fontSecondary">{outputItem.value}</span>
+                  </div>
+                )
+              })}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

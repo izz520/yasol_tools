@@ -34,6 +34,10 @@ const AbiPage = () => {
     if (!selectKey) setSelectKey(selectKeyTemp)
   }, [selectKey, selectKeyTemp])
 
+  const changeActive = (activeKey: string) => {
+    setSelectKey(activeKey)
+  }
+
   return (
     <div className="flex w-full flex-1 flex-col gap-4 rounded-lg bg-cardBg px-4 py-3">
       <Breadcrumb>
@@ -60,7 +64,12 @@ const AbiPage = () => {
           <AddContract />
           {contracts.map((contract) => {
             const selectIndex = contract.network + contract.address === selectKeyTemp
-            return <ContractItem isActive={selectIndex} key={contract.address + contract.network} {...contract} />
+            const key = contract.network + contract.address
+            return (
+              <div key={key} onClick={() => changeActive(key)}>
+                <ContractItem isActive={selectIndex} {...contract} />
+              </div>
+            )
           })}
         </div>
         <MethodCard />
