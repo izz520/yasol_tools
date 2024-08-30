@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast'
+
 import type { Metadata } from 'next'
 import { twMerge } from 'tailwind-merge'
 
@@ -34,6 +36,7 @@ export default function RootLayout({
             <section className="mt-16 flex flex-1 p-4">{children}</section>
           </main>
         </Providers>
+        <Toaster />
       </body>
     </html>
   )

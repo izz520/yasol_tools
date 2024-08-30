@@ -11,7 +11,7 @@ import MethodItem from './MethodItem'
 type ITab = 'read' | 'write'
 const MethodCard = () => {
   const [currentTab, setCurrentTab] = useState<ITab>('read')
-  const { selectContract, methods, readContract } = useContract()
+  const { selectContract, methods, readContract, writeContract } = useContract()
 
   const chainInfo = useMemo(
     () => networkList.find((item) => item.chainID === selectContract?.network),
@@ -65,7 +65,9 @@ const MethodCard = () => {
       </div>
       <div className={twMerge('flex-col gap-5 overflow-y-auto', currentTab === 'write' ? 'flex' : 'hidden h-0')}>
         {writeMethods.map((item, index) => {
-          return <MethodItem functionType={currentTab} key={item.name + index} {...item} />
+          return (
+            <MethodItem functionType={currentTab} writeContract={writeContract} key={item.name + index} {...item} />
+          )
         })}
       </div>
     </div>

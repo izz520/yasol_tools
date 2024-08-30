@@ -26,7 +26,9 @@ const useContract = () => {
 
   const provider = useMemo(() => {
     const currentChain = Number(connectChainId)
+    console.log('🚀 ~ provider ~ currentChain:', currentChain)
     const currentContractChain = Number(selectContract?.network)
+    console.log('🚀 ~ provider ~ currentContractChain:', currentContractChain)
     if (currentContractChain !== currentChain) {
       console.log('use custom rpc')
       const rpcProvider = new ethers.providers.JsonRpcProvider(chainInfo?.rpcUrls[0])
@@ -34,6 +36,8 @@ const useContract = () => {
 
       return rpcProvider
     }
+    console.log('use default rpc')
+
     return ethereumProvider
   }, [ethereumProvider, connectChainId, selectContract, chainInfo])
 
@@ -45,7 +49,7 @@ const useContract = () => {
   const contract = useMemo(() => {
     if (!provider || !selectContract?.address) return null
 
-    return new Contract(selectContract?.address as string, methods, provider)
+    return new Contract(selectContract?.address as string, methods, provider.getSigner())
   }, [provider, selectContract, methods])
 
   const readContract = useCallback(
@@ -59,10 +63,30 @@ const useContract = () => {
     },
     [contract]
   )
+
+  const writeContract = useCallback(
+    async (funName: string, args: string[]) => {
+      if (contract) {
+        console.log('contract', contract)
+        const accounts = await provider?.listAccounts()
+        console.log('accounts', accounts)
+
+        console.log('funName', funName)
+        console.log('args', args)
+        const result = await contract[funName](...args)
+        await result.wait()
+
+        return result
+      }
+    },
+    [contract]
+  )
+
   return {
     selectContract,
     methods,
     readContract,
+    writeContract,
   }
 }
 

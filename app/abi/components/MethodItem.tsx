@@ -1,9 +1,13 @@
 import React, { memo, useRef, useState } from 'react'
 
+import { Player } from '@lottiefiles/react-lottie-player'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
+import { useToast } from '@/hooks/useToast'
 import { formatUpperCaseFirst } from '@/libs/common/format'
+import LoadingJson from '@/lottie/loading.json'
 
 import { IAbiItem } from '../types'
 import MethodTypeBadge from './MethodTypeBadge'
@@ -11,22 +15,48 @@ import MethodTypeBadge from './MethodTypeBadge'
 interface IMethodItemProps extends IAbiItem {
   functionType: 'read' | 'write'
   readContract?: (funName: string, args: string[]) => Promise<any>
+  writeContract?: (funName: string, args: string[]) => Promise<any>
 }
 const MethodItem = (props: IMethodItemProps) => {
-  const { functionType, readContract, ...abiInfo } = props
+  const { functionType, readContract, writeContract, ...abiInfo } = props
+
+  const { errorToast } = useToast()
 
   const inputsRef = useRef<any[]>([])
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [inputs, setInputs] = useState<any[]>(new Array(abiInfo.inputs.length).fill(''))
 
   const [output, setOutput] = useState<any[]>([])
 
   const handleQuery = async () => {
-    console.log('inputsRef.current', inputsRef.current)
-    const result = await readContract?.(abiInfo.name, inputsRef.current)
-    console.log('result', result)
-    formateResult(result)
-    console.log('output', abiInfo.outputs)
+    if (isLoading) return
+    try {
+      setIsLoading(true)
+      if (functionType === 'read') {
+        console.log('inputsRef.current', inputsRef.current)
+        const result = await readContract?.(abiInfo.name, inputsRef.current)
+        console.log('result', result)
+        formateResult(result)
+        console.log('output', abiInfo.outputs)
+        return
+      }
+      console.log('write')
+      const result = await writeContract?.(abiInfo.name, inputsRef.current)
+      console.log('result', result)
+      const outPut = {
+        name: 'transactionHash',
+        type: 'hex',
+        value: result.hash,
+      }
+      setOutput([outPut])
+    } catch (err: any) {
+      console.log('err', err)
+      errorToast(err.message.split(' (')[0] || 'contract error')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const formateResult = (result: any) => {
@@ -97,6 +127,17 @@ const MethodItem = (props: IMethodItemProps) => {
       >
         Query
       </Button>
+      {isLoading && (
+        <div className=" relative h-[42px] w-full overflow-hidden">
+          <Player
+            autoplay
+            loop
+            src={LoadingJson}
+            className=" absolute -top-7"
+            style={{ height: '100px', width: '100px' }}
+          />
+        </div>
+      )}
       {output.length > 0 && (
         <div className="pl-4">
           <div className="space-y-2 rounded-md bg-[rgba(217,214,214,0.1)] px-4 py-3">
