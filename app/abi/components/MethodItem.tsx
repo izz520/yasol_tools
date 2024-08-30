@@ -48,6 +48,7 @@ const MethodItem = (props: IMethodItemProps) => {
 
       return {
         name: name,
+        type: item.type,
         value: item.type.includes('uint') ? Number(result[index]) : result[index],
       }
     })
@@ -98,14 +99,16 @@ const MethodItem = (props: IMethodItemProps) => {
       </Button>
       {output.length > 0 && (
         <div className="pl-4">
-          <div className="rounded-md bg-bgSecondary p-2">
-            {output.length === 1 && <div>{output[0].value}</div>}
+          <div className="space-y-2 rounded-md bg-[rgba(217,214,214,0.1)] px-4 py-3">
+            {output.length === 1 && <div className="text-sm">{output[0].value}</div>}
             {output.length > 1 &&
               output?.map((outputItem, index) => {
                 return (
                   <div key={index} className="flex flex-col">
-                    <span>{outputItem.name}</span>
-                    <span className=" text-fontSecondary">{outputItem.value}</span>
+                    <span className=" text-sm text-fontSecondary">
+                      {outputItem.name} ({outputItem.type})
+                    </span>
+                    <span className=" text-sm">{outputItem.value}</span>
                   </div>
                 )
               })}
